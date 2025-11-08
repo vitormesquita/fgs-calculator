@@ -1,11 +1,14 @@
-import { Assets as NavigationAssets } from '@react-navigation/elements';
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { Asset } from 'expo-asset';
-import { createURL } from 'expo-linking';
+import '../global.css';
+
+import { DefaultTheme } from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as React from 'react';
-import { useColorScheme } from 'react-native';
-import { Navigation } from './navigation';
+import { RootStack } from './navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, View } from 'react-native';
+import { useCallback } from 'react';
+import { Asset } from 'expo-asset';
+import { Assets as NavigationAssets } from '@react-navigation/elements';
 
 Asset.loadAsync([
   ...NavigationAssets,
@@ -15,23 +18,31 @@ Asset.loadAsync([
 
 SplashScreen.preventAutoHideAsync();
 
-const prefix = createURL('/');
-
 export function App() {
-  const colorScheme = useColorScheme();
 
-  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme
+  const onLayout = useCallback(async() => {
+    await SplashScreen.hideAsync();
+  }, []);
 
   return (
-    <Navigation
-      theme={theme}
-      linking={{
-        enabled: 'auto',
-        prefixes: [prefix],
-      }}
-      onReady={() => {
-        SplashScreen.hideAsync();
-      }}
-    />
+    <NavigationContainer theme={appTheme}> 
+      <View style={styles.navigationLayout} onLayout={onLayout}>
+        <RootStack />
+      </View>      
+    </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  navigationLayout: {
+    flex: 1,
+  },
+});
+
+const appTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#f5f5f5',
+  },
+};
