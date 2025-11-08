@@ -10,6 +10,7 @@
     "clean": "watchman watch-del-all && yarn cache clean"
   },
   "dependencies": {
+    "@expo-google-fonts/montserrat": "^0.4.2",
     "@expo/metro-runtime": "~6.1.2",
     "@react-navigation/bottom-tabs": "^7.4.7",
     "@react-navigation/elements": "^2.6.4",
@@ -18,23 +19,29 @@
     "expo": "^54.0.7",
     "expo-asset": "~12.0.8",
     "expo-dev-client": "~6.0.12",
+    "expo-font": "~12.0.8",
     "expo-linking": "~8.0.8",
     "expo-splash-screen": "~31.0.10",
     "expo-system-ui": "~6.0.7",
     "nativewind": "latest",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-hook-form": "^7.66.0",
     "react-native": "0.81.4",
     "react-native-gesture-handler": "~2.28.0",
+    "react-native-keyboard-controller": "^1.19.5",
+    "react-native-mask-text": "^0.15.0",
     "react-native-reanimated": "~3.17.5",
-    "react-native-worklets": "0.5.1",
     "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.16.0"
+    "react-native-screens": "~4.16.0",
+    "react-native-svg": "15.12.1",
+    "react-native-worklets": "0.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~19.1.10",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "react-native-svg-transformer": "^1.5.2",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.9.2"
   },
