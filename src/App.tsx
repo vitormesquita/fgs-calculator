@@ -44,15 +44,15 @@ export function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <KeyboardProvider>
+    <KeyboardProvider>  
+      <SafeAreaProvider>
         <NavigationContainer theme={appTheme}>
           <View style={styles.navigationLayout} onLayout={onLayout}>
             <RootStack />
           </View>      
         </NavigationContainer>
-      </KeyboardProvider>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </KeyboardProvider>
   );
 }
 

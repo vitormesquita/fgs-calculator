@@ -14,7 +14,7 @@ export function Button({ text, variant, disabled, isLoading, onPress }: ButtonPr
   const getButtonStyle = () => {
     switch (variant) {
       case 'primary':
-        return 'btn-primary';
+        return 'btn-primary disabled:bg-gray-300';
       default:
         return '';
     }

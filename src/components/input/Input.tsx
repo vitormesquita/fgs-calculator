@@ -5,7 +5,7 @@ import colors from "tailwindcss/colors";
 type InputProps = {
   label?: string;
   placeholder: string;
-  value: string;
+  value?: string;
   type?: 'text' | 'phone' ;
   onChangeText: (text: string) => void;
 };
