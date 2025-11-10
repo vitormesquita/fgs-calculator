@@ -15,6 +15,7 @@ import { Month } from "../models";
 import { useFGTS } from "../context/FGTSContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackActions } from "@react-navigation/native";
+import { createAndSaveFGTSInfoUseCase } from "../useCases/createAndSaveFGTSInfoUseCase";
 
 type FGTSFormData = {
   name?: string;
@@ -53,15 +54,21 @@ export function FGTSForm() {
         return;
       }
 
-      setInfo({
-        name: data.name || '',
-        phone: data.phone || '',
-        balanceInCents: data.balanceInCents || 0,
-        birthdayMonth: data.birthdayMonth || {} as Month,
-      });
+      const responseFGTSInfo = await createAndSaveFGTSInfoUseCase(
+        data.name, 
+        data.phone, 
+        data.balanceInCents, 
+        data.birthdayMonth
+      );
 
-      const pushToResultScreen = StackActions.push('FGTSResult');
-      navigation.dispatch(pushToResultScreen);
+      if (responseFGTSInfo.success && responseFGTSInfo.fgtsInfo) {
+        setInfo(responseFGTSInfo.fgtsInfo);
+        const pushToResultScreen = StackActions.push('FGTSResult');
+        navigation.dispatch(pushToResultScreen);
+      } else {
+        const errors = responseFGTSInfo.errors.join('\n');
+        Alert.alert('Opss...', errors);
+      }
     } catch (error) {
       Alert.alert('Opss...', 'Erro ao validar telefone, tente novamente mais tarde.');
     } finally {

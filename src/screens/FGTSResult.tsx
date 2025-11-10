@@ -3,14 +3,14 @@ import Logo from '../assets/icons/logo.svg';
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../utils/extensions/stringExtensions";
 import { useFGTS } from "../context/FGTSContext";
-import { calculateFGTSWithdrawal } from "../useCases/calculateFGTSWithdrawal";
+import { calculateFGTSWithdrawalUseCase } from "../useCases/calculateFGTSWithdrawalUseCase";
 import { centsToReais, formatCurrency } from "../utils/formatters/currency";
 
 export function FGTSResult() {
   const { info } = useFGTS();
   const bgResult = require('../assets/images/bg-result.jpeg');
 
-  const withdrawalAmount = calculateFGTSWithdrawal(info?.balanceInCents ?? 0);
+  const withdrawalAmount = calculateFGTSWithdrawalUseCase(info?.balanceInCents ?? 0);
   const withdrawalAmountFormatted = formatCurrency(centsToReais(withdrawalAmount));
 
   return (

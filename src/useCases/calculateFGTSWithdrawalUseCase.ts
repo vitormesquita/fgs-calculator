@@ -1,6 +1,6 @@
 import { reaisToCents } from "@/utils/formatters/currency";
 
-export function calculateFGTSWithdrawal(balanceInCents: number) {
+export function calculateFGTSWithdrawalUseCase(balanceInCents: number) {
 
   function pct(percentage: number) {
     return Math.floor((balanceInCents * percentage) / 100);

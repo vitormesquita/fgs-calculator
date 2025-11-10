@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { FGTSInfo } from "../models";
+import { getFGTSInfo } from "../storage/fgtsStorage";
 
 type FGTSContextProps = {
   info: FGTSInfo;
@@ -10,6 +11,15 @@ export const FGTSContext = createContext<FGTSContextProps | null>(null);
 
 export const FGTSProvider = ({ children }: { children: React.ReactNode }) => {
   const [info, setInfo] = useState<FGTSInfo>({} as FGTSInfo);
+
+  useEffect(() => {
+    async function hydrate() {
+      const saved = await getFGTSInfo();
+      if (saved) setInfo(saved);
+    }
+
+    hydrate();
+  }, []);
 
   return (
     <FGTSContext.Provider value={{ info, setInfo }}>
