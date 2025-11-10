@@ -12,7 +12,7 @@ export function stringToCents(value: string) {
 export function formatCurrencyInput(value: string) {
   const numbers = value.replace(/\D/g, "") || "0";
   const cents = stringToCents(numbers) ;
-  return formatCurrency(cents / 100).replace('R$', '');
+  return formatCurrency(cents / 100).replace('R$', '').trim();
 }
 
 export function formatCurrency(value: number) {
@@ -22,4 +22,14 @@ export function formatCurrency(value: number) {
   }).format(value);
 
   return formattedValue;
+}
+
+export function reaisToCents(value: number) {
+  const str = value.toFixed(2);
+  const numbers = str.replace(/\D/g, "");
+  return Number(numbers);
+}
+
+export function centsToReais(value: number) {
+  return Number((value / 100).toFixed(2));
 }

@@ -1,6 +1,6 @@
 import { View, Text, TextInput } from "react-native";
 import { useState, useEffect } from "react";
-import { formatCurrencyInput } from "../../utils/formatters/currency";
+import { formatCurrencyInput } from "../../formatters/currency";
 
 type CurrencyInputProps = {
   label?: string;
