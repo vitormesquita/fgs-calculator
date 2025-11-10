@@ -21,6 +21,7 @@ import {
 
 Asset.loadAsync([
   ...NavigationAssets,
+  require('./assets/images/bg-result.jpeg'),
 ]);
 
 SplashScreen.preventAutoHideAsync();

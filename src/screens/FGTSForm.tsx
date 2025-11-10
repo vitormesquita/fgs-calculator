@@ -11,6 +11,10 @@ import { getMonths } from "../utils/formatters/date";
 import "../utils/extensions/stringExtensions";
 import { CalendarIcon } from "lucide-react-native";
 import { PhoneRoutes } from "../api/routes/phoneRoutes";
+import { Month } from "../models";
+import { useFGTS } from "../context/FGTSContext";
+import { useNavigation } from "@react-navigation/native";
+import { StackActions } from "@react-navigation/native";
 
 type FGTSFormData = {
   name?: string;
@@ -19,16 +23,13 @@ type FGTSFormData = {
   birthdayMonth?: Month;
 }
 
-interface Month {
-  name: string;
-  value: number;
-}
-
 export function FGTSForm() {
-  const months = getMonths();
+  const navigation = useNavigation();
+  const { setInfo } = useFGTS();
   
+  const months = getMonths();
   const [isLoading, setIsLoading] = useState(false);
-  const {control, watch, trigger, handleSubmit, formState: {errors, isValid}} = useForm<FGTSFormData>({
+  const {control, trigger, handleSubmit, formState: {errors, isValid}} = useForm<FGTSFormData>({
     defaultValues: {
       name: undefined,
       phone: undefined,
@@ -52,8 +53,15 @@ export function FGTSForm() {
         return;
       }
 
-      console.log('Balance in cents: ', data.balanceInCents);
-      
+      setInfo({
+        name: data.name || '',
+        phone: data.phone || '',
+        balanceInCents: data.balanceInCents || 0,
+        birthdayMonth: data.birthdayMonth || {} as Month,
+      });
+
+      const pushToResultScreen = StackActions.push('FGTSResult');
+      navigation.dispatch(pushToResultScreen);
     } catch (error) {
       Alert.alert('Opss...', 'Erro ao validar telefone, tente novamente mais tarde.');
     } finally {

@@ -15,6 +15,11 @@
 }
 
 @layer utilities {
+  .font-thin {
+    font-family: "Montserrat-Thin";
+    font-weight: 300;
+  }
+
   .font-normal {
     font-family: "Montserrat";
     font-weight: 400;
