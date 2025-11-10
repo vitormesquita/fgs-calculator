@@ -1,65 +1,60 @@
-# Starter Template with React Navigation
+# Calculadora de FGTS - Saque Aniversário
 
-This is a minimal starter template for React Native apps using Expo and React Navigation.
+Aplicativo desenvolvido em React Native para estimar o valor disponível na modalidade **Saque-Aniversário do FGTS**.
 
-It includes the following:
+## Funcionalidades
 
-- Example [Native Stack](https://reactnavigation.org/docs/native-stack-navigator) with a nested [Bottom Tab](https://reactnavigation.org/docs/bottom-tab-navigator)
-- Web support with [React Native for Web](https://necolas.github.io/react-native-web/)
-- TypeScript support and configured for React Navigation
-- Automatic [deep link](https://reactnavigation.org/docs/deep-linking) and [URL handling configuration](https://reactnavigation.org/docs/configuring-links)
-- Theme support [based on system appearance](https://reactnavigation.org/docs/themes/#using-the-operating-system-preferences)
-- Expo [Development Build](https://docs.expo.dev/develop/development-builds/introduction/) with [Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)
+- Simulação do valor saque a partir do saldo atual do FGTS.
+- Exibição do valor a poder ser sacado.
 
-## Getting Started
+## Stack Utilizada
 
-1. Create a new project using this template:
+- **Expo** com `expo-dev-client` para builds e execução nativa.
+- **React Native** para interface multi plataforma.
+- **TypeScript** para tipagem estática.
+- **React Navigation (Native Stack)** para fluxo de telas.
+- **Context API** e **Async Storage** (`src/storage/fgtsStorage.ts`) para estado global e persistência.
+- **Tailwind** para estilização de componentes.
 
-   ```sh
-   npx create-expo-app@latest --template react-navigation/template
-   ```
+## Pré-requisitos
 
-2. Edit the `app.json` file to configure the `name`, `slug`, `scheme` and bundle identifiers (`ios.bundleIdentifier` and `android.bundleIdentifier`) for your app.
+- Node.js 18+ (LTS recomendado).
+- yarn instalado.
 
-3. Edit the `src/App.tsx` file to start working on your app.
+## Como Rodar o Projeto
 
-## Running the app
-
-- Install the dependencies:
+1. Instale as dependências:
 
   ```sh
-  npm install
+  yarn install
   ```
 
-- Start the development server:
+2. Inicie os apps utilizando:
+
+  Android
+  ```sh
+  yarn android
+  ```
+
+  iOS
+  ```sh
+  yarn ios
+  ```
+3. Para rodar os testes unitários
 
   ```sh
-  npm start
+  yarn test
   ```
 
-- Build and run iOS and Android development builds:
+## Estrutura Relevante
 
-  ```sh
-  npm run ios
-  # or
-  npm run android
-  ```
+- `src/screens/FGTSForm.tsx`: formulário para coleta de dados e acionamento da simulação.
+- `src/screens/FGTSResult.tsx`: resumo com os resultados.
+- `src/context/FGTSContext.tsx`: estado global do resultado.
+- `src/storage/fgtsStorage.ts`: persistência da simulação feita.
+- `src/utils/components/`: componentes reutilizáveis (ex.: botões, inputs).
+- `global.css`: estilos globais compartilhados via CSS e Tailwind.
 
-- In the terminal running the development server, press `i` to open the iOS simulator, `a` to open the Android device or emulator, or `w` to open the web browser.
+## Licença
 
-## Notes
-
-This project uses a [development build](https://docs.expo.dev/develop/development-builds/introduction/) and cannot be run with [Expo Go](https://expo.dev/go). To run the app with Expo Go, edit the `package.json` file, remove the `expo-dev-client` package and `--dev-client` flag from the `start` script.
-
-We highly recommend using the development builds for normal development and testing.
-
-The `ios` and `android` folder are gitignored in the project by default as they are automatically generated during the build process ([Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)). This means that you should not edit these folders directly and use [config plugins](https://docs.expo.dev/config-plugins/) instead. However, if you need to edit these folders, you can remove them from the `.gitignore` file so that they are tracked by git.
-
-## Resources
-
-- [React Navigation documentation](https://reactnavigation.org/)
-- [Expo documentation](https://docs.expo.dev/)
-
----
-
-Demo assets are from [lucide.dev](https://lucide.dev/)
+Uso livre para fins pessoais. Adapte conforme necessário antes de qualquer distribuição comercial.

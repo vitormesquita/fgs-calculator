@@ -3,13 +3,13 @@
     "name": "fgts-calculator",
     "slug": "fgts-calculator",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "scheme": "fgtscalculator",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.fgtscalculator"
     },
     "android": {

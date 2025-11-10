@@ -33,16 +33,18 @@ export function Input({ label, placeholder, value, type, onChangeText }: InputPr
 
   return (
     <View className="flex-col gap-y-1">
-      {label && <Text className="text-sm font-medium text-gray-500 pb-1">{label}</Text>}      
-      <MaskedTextInput
-        value={value}
-        style={styles.input}
-        mask={getInputMask()}
-        placeholder={placeholder}
-        placeholderTextColor="gray"
-        keyboardType={getInputKeyboardType()}
-        onChangeText={(_, rawText) => onChangeText(rawText)}
-        />
+      {label && <Text className="text-sm font-medium text-gray-500 pb-1">{label}</Text>}
+      <View className="border border-gray-200 rounded-lg">
+        <MaskedTextInput
+          value={value}
+          style={styles.input}
+          mask={getInputMask()}
+          placeholder={placeholder}
+          placeholderTextColor="gray"
+          keyboardType={getInputKeyboardType()}
+          onChangeText={(_, rawText) => onChangeText(rawText)}
+          />
+        </View>
     </View>
   );
 }
@@ -54,9 +56,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
     height: 46,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.gray[200],
+    borderWidth: 0,
+    borderBottomColor: "transparent",
     paddingHorizontal: 16,
   },
 });

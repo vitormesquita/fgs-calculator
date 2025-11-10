@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, Text, Animated, Alert } from "react-native";
 import { Button, Input, CurrencyInput } from "../utils/components";
 import BottomSheetInput from "../utils/components/input/BottomSheetInput";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Controller, useForm } from "react-hook-form";
 import Logo from "../assets/icons/logo.svg";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
@@ -16,6 +16,7 @@ import { useFGTS } from "../context/FGTSContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackActions } from "@react-navigation/native";
 import { createAndSaveFGTSInfoUseCase } from "../useCases/createAndSaveFGTSInfoUseCase";
+import { validateName, validatePhone, validateBalance } from "../utils/validators/formValidators";
 
 type FGTSFormData = {
   name?: string;
@@ -26,6 +27,7 @@ type FGTSFormData = {
 
 export function FGTSForm() {
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
   const { setInfo } = useFGTS();
   
   const months = getMonths();
@@ -63,7 +65,7 @@ export function FGTSForm() {
 
       if (responseFGTSInfo.success && responseFGTSInfo.fgtsInfo) {
         setInfo(responseFGTSInfo.fgtsInfo);
-        const pushToResultScreen = StackActions.push('FGTSResult');
+        const pushToResultScreen = StackActions.replace('FGTSResult');
         navigation.dispatch(pushToResultScreen);
       } else {
         const errors = responseFGTSInfo.errors.join('\n');
@@ -80,7 +82,10 @@ export function FGTSForm() {
     <View className="relative flex-1">
       <View className="absolute top-0 left-0 right-0 h-1/2 bg-primary z-0" />
 
-      <SafeAreaView className="flex-1">          
+      <View 
+        className="flex-1" 
+        style={{ paddingTop: insets.top + 16, paddingBottom: insets.bottom + 16 }}
+      >          
         <KeyboardAwareScrollView 
           className="relative z-10 p-6 h-full" 
           keyboardShouldPersistTaps="handled"
@@ -99,7 +104,10 @@ export function FGTSForm() {
               <Controller
                 control={control}
                 name="name"
-                rules={{ required: 'Nome é obrigatório'}}
+                rules={{ 
+                  required: 'Nome é obrigatório', 
+                  validate: validateName,
+                }}
                 render={({ field }) => (
                   <View className="flex-col gap-y-1">
                   <Input 
@@ -109,7 +117,7 @@ export function FGTSForm() {
                     onChangeText={field.onChange}
                   />
                   {errors.name && (
-                    <Animated.Text className="font-montserrat text-red-500 text-sm">
+                    <Animated.Text className="font-normal text-red-500 text-sm">
                       {errors.name.message}
                     </Animated.Text>
                   )}
@@ -121,12 +129,7 @@ export function FGTSForm() {
                 name="phone"
                 rules={{ 
                   required: 'Telefone é obrigatório', 
-                  validate: (value: string | undefined) => {
-                    if (value && value.length !== 11) {
-                    return 'Telefone inválido';
-                    }
-                    return true;
-                  },
+                  validate: validatePhone,
                 }}
                 render={({ field }) => (
                   <View className="flex-col gap-y-1">                    
@@ -139,7 +142,7 @@ export function FGTSForm() {
                     />
 
                     {errors.phone && (
-                      <Animated.Text className="font-montserrat text-red-500 text-sm">
+                      <Animated.Text className="font-normal text-red-500 text-sm">
                         {errors.phone.message}
                       </Animated.Text>
                     )}
@@ -151,12 +154,7 @@ export function FGTSForm() {
                 name="balanceInCents"
                 rules={{ 
                   required: 'Saldo é obrigatório', 
-                  validate: (value: number | undefined) => {
-                    if (value === undefined || value <= 0) {
-                      return 'Saldo deve ser maior que 0';
-                    }
-                    return undefined;
-                  },
+                  validate: validateBalance,
                 }}
                 render={({ field }) => (
                   <View className="flex-col gap-y-1">
@@ -170,7 +168,7 @@ export function FGTSForm() {
                       }}
                     />
                     {errors.balanceInCents && (
-                      <Animated.Text className="font-montserrat text-red-500 text-sm">
+                      <Animated.Text className="font-normal text-red-500 text-sm">
                         {errors.balanceInCents.message}
                       </Animated.Text>
                     )}
@@ -198,7 +196,7 @@ export function FGTSForm() {
                       }} 
                     />
                     {errors.birthdayMonth && (
-                      <Animated.Text className="font-montserrat text-red-500 text-sm">
+                      <Animated.Text className="font-normal text-red-500 text-sm">
                         {errors.birthdayMonth.message}
                       </Animated.Text>
                     )}
@@ -214,7 +212,7 @@ export function FGTSForm() {
             </View>
           </View>
         </KeyboardAwareScrollView>
-      </SafeAreaView>
+      </View>
     </View>
   );
 }

@@ -8,7 +8,8 @@
     "web": "expo start --web",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "clean": "watchman watch-del-all && yarn cache clean"
+    "clean": "watchman watch-del-all && yarn cache clean",
+    "generate": "npx expo prebuild --clean"
   },
   "dependencies": {
     "@expo-google-fonts/montserrat": "^0.4.2",
